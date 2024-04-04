@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/norm.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fight_arm.css' %}">
+    <title>Fight_page</title>
+</head>
+<body>
+    <div class="full-display">
+        <div class="fight-background">
+            <div class="left-army armys">
+                <div class="arm">
+                    <label style="font-size: 20px;" for="left-chose-army">Выберите армию</label>
+
+                    <select value="------" id="left-chose-army">
+                            {% for army in armys %}
+                            <option>{{army.commander_name}}</option>
+                            {% endfor %}
+                    </select>
+
+                    <div style="height: 300px;width: 300px;background-image: url('static/img/1.jpg');background-size: cover;" id="left-army-fraction"></div>
+                    <div style="text-align: center;font-size: 20px;margin-top: 10px;" id="left-commander-name">Nurdaulet</div>
+                </div>
+            </div>
+            <div class="center">
+                <img src="{% static 'img/vs.png' %}" alt="">
+            </div>
+            <div class="right-army armys">
+                <div class="arm">
+                    <label style="font-size: 20px;" for="right-chose-army">Выберите армию</label>
+                    
+                    <select value="------" id="right-chose-army">
+                        {% for army in armys %}
+                        <option>{{army.commander_name}}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <div style="height: 300px;width: 300px;background-image: url('static/img/1.jpg');background-size: cover;" id="right-army-fraction"></div>
+                    <div style="text-align: center;font-size: 20px;margin-top: 10px;" id="right-commander-name">Nurdaulet</div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;align-items: center;justify-content: center;">
+            <a href="" id="button-fight"><div style="width: 250px;" class="btn btn-outline-danger">сразить</div></a>
+        </div>
+    </div>
+    <script>
+        var dictionary = {};
+        var select1 = document.getElementById("left-chose-army");
+        var select2 = document.getElementById("right-chose-army");
+        var img1 = document.getElementById("left-army-fraction");
+        var img2 = document.getElementById("right-army-fraction");
+        var comName1 = document.getElementById("left-commander-name");
+        var comName2 = document.getElementById("right-commander-name");
+        var btn = document.getElementById("button-fight");
+
+        function addToDictionary(key, value) {
+            dictionary[key] = value;
+        }
+//      {% for army in armys %}                             
+        addToDictionary("{{army.commander_name}}", "{{army.faction.flag}}");
+//      {% endfor %}
+        function handleSelectChange1() {
+            var selectedValue = select1.value;
+            img1.style.backgroundImage = "url('static/" + dictionary[selectedValue] + "')";
+            comName1.textContent = selectedValue;
+            btn.href = selectedValue + "/"+ select2.value
+        }
+        function handleSelectChange2() {
+            var selectedValue = select2.value;
+            img2.style.backgroundImage = "url('static/" + dictionary[selectedValue] + "')";
+            comName2.textContent = selectedValue;
+            btn.href = "fight/" + select1.value +"/"+ selectedValue
+        }
+        select1.addEventListener("change", handleSelectChange1);
+        select2.addEventListener("change", handleSelectChange2);
+    </script>
+</body>
+</html>

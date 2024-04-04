@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Army</title>
+    <style>
+        h1 {
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Изменение тактики</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="leftArmyInput">Left Army:</label>
+        <select id="leftArmyInput" name="left_army">
+            {% for army_type in army_types %}
+                <option value="{{ army_type.id }}" {% if army.left_army == army_type %} selected {% endif %}>{{ army_type.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="centerArmyInput">Center Army:</label>
+        <select id="centerArmyInput" name="center_army">
+            {% for army_type in army_types %}
+                <option value="{{ army_type.id }}" {% if army.center_army == army_type %} selected {% endif %}>{{ army_type.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="rightArmyInput">Right Army:</label>
+        <select id="rightArmyInput" name="right_army">
+            {% for army_type in army_types %}
+                <option value="{{ army_type.id }}" {% if army.right_army == army_type %} selected {% endif %}>{{ army_type.name }}</option>
+            {% endfor %}
+        </select><br>
+    
+        <button type="submit">Изменить</button>
+    </form>
+    
+</body>
+</html>

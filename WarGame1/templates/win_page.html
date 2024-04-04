@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/norm.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fight_arm.css' %}">
+    <link rel="stylesheet" href="{% static 'css/win_page.css' %}">
+    <title>win_page</title>
+</head>
+<body>
+    <div class="full-display">
+        <div class="fight-background">
+            <div class="left-army armys">
+                <div class="arm">
+                    <div style="height: 300px;width: 300px;background-image: url('/static/{{army1.faction.flag}}');background-size: cover;" id="left-army-fraction"></div>
+                    <div style="text-align: center;font-size: 20px;margin-top: 10px;" id="left-commander-name">{{army1.commander_name}}</div>
+                    <div>Левый часть арми: {{army1.left_army}}</div>
+                    <div>Центральный часть арми: {{army1.center_army}}</div>
+                    <div>Правый часть арми: {{army1.right_army}}</div>
+                </div>
+            </div>
+            <div class="center">
+                <img src="{% static 'img/vs.png' %}" alt="">
+            </div>
+            <div class="right-army armys">
+                <div class="arm">
+                    <div style="height: 300px;width: 300px;background-image: url('/static/{{army2.faction.flag}}');background-size: cover;" id="right-army-fraction"></div>
+                    <div style="text-align: center;font-size: 20px;margin-top: 10px;" id="right-commander-name">{{army2.commander_name}}</div>
+                    <div>Левый часть арми: {{army2.left_army}}</div>
+                    <div>Центральный часть арми: {{army2.center_army}}</div>
+                    <div>Правый часть арми: {{army2.right_army}}</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="text-align: center;font-size: 20px;margin-bottom: 10px;">
+                <div>в левом фронте победил: {% if left == 1 %} {{army1.commander_name}} {% elif left == 2 %} {{army2.commander_name}} {% else %} ни-кто {% endif %}</div>
+                <div>в центральном фронте победил: {% if center == 1 %} {{army1.commander_name}} {% elif center == 2 %} {{army2.commander_name}} {% else %} ни-кто {% endif %}</div>
+                <div>в правом фронте победил: {% if right == 1 %} {{army1.commander_name}} {% elif right == 2 %} {{army2.commander_name}} {% else %} ни-кто {% endif %}</div>
+                <div>в итоге победитель: {% if whiner == 1 %} {{army1.commander_name}} {% elif whiner == 2 %} {{army2.commander_name}} {% else %} ни-кто {% endif %}</div>
+            </div>
+        </div>
+        <div style="display: flex;align-items: center;justify-content: center;">
+            <a href="{% url 'main_page' %}" id="button-fight"><div style="width: 250px;" class="btn btn-outline-danger">На главную</div></a>
+        </div>
+    </div>
+</body>
+</html>

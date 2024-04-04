@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/norm.css' %}">
+    <link rel="stylesheet" href="{% static 'css/MainPage.css' %}">
+    <title>MainPage</title>
+</head>
+<body>
+    <div class="display">
+        <div class="left-panel">
+            <div class="Army">
+                <div style="display: flex; align-items: center;margin-top: 10px;">
+                    <h1 style="margin-left: 16px;margin-right: 26px;color: white;">войска</h1>
+                    <a href="{% url 'add_army' %}"><div class="btn btn-outline-light">добавить войска</div></a>
+                </div>
+                <div class="Army-list">
+                    {% for army in armies %}
+                    <a href="{% url 'army_detail' army_id=army.id %}">
+                    <div class="list-elements">
+                        <div style="display: flex; align-items: center;margin-left: 15px;">
+                            <div class="flag" style="height: 70px;width: 70px;background-image: url('static/{{ army.faction.flag }}');background-size: cover;"></div>
+                            <div style="margin-left: 10px;">
+                                <h3>{{ army.faction }}</h3>
+                                <div>{{ army.commander_name }}</div>
+                            </div>
+                        </div>
+                        <div style="margin-right: 15px;" class="element-right">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div style="color: green;font-size: 20px;">{{ army.victories }}</div>
+                                <div style="color: red;font-size: 20px;">{{ army.defeats }}</div>
+                            </div>
+                            <a href="{% url 'deleteArmy' army_id=army.id %}"><div class="btn btn-outline-danger">распустить</div></a>
+                        </div>
+                    </div></a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div style="background-image: url('{% static 'img/turnir.jpg' %}');background-size: cover;" class="turnir">
+
+            </div>
+            <a href="{% url 'fight_arm' %}"><div style="background-image: url('{% static 'img/srj.jpg' %}');background-size: cover;" class="srazhenia">
+                <h1 style="color: white;
+                padding-top: 60px;
+                text-align: center;
+                font-size: 100px;">Fight</h1>
+            </div></a>
+        </div>
+    </div>
+</body>
+</html>
